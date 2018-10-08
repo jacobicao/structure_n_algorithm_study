@@ -87,7 +87,6 @@ int if_palindrome(node *a)
     fast=fast->next;
     a=a->next;
   }
-  
   return 1; 
 }
 

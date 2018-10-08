@@ -51,6 +51,21 @@ node* reverseList(node *H)
   return newHead;
 }
 
+node* reverseList2(node* H)
+{
+  if (H==NULL || H->next==NULL) 
+    return H;
+  node* p=H, *newH=NULL;
+  while (p!=NULL)
+  {
+    node *tmp=p->next;
+    p->next=newH;
+    newH=p;
+    p=tmp;
+  }
+  return newH;
+}
+
 int if_palindrome(node *a)
 {
   node *fast,*slow;
@@ -64,7 +79,7 @@ int if_palindrome(node *a)
     fast=fast->next;
     slow=slow->next;
   }
-  fast=reverseList(slow);
+  fast=reverseList2(slow);
   while(a!=slow)
   {
     if (fast->data!=a->data)

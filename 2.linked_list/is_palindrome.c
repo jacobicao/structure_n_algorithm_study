@@ -66,7 +66,7 @@ node* reverseList2(node* H)
   return newH;
 }
 
-int if_palindrome(node *a)
+int is_palindrome(node *a)
 {
   node *fast,*slow;
   fast=a;
@@ -93,7 +93,7 @@ int if_palindrome(node *a)
 int main(){
   node *a=NULL;
   a=creat();
-  if (if_palindrome(a))
+  if (is_palindrome(a))
     printf("It is a palindrome.\n");
   else
     printf("It is not a palindrome.\n");

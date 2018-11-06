@@ -31,23 +31,11 @@ int insert(Array *array, int elem)
 			break;
 	}
 	if (idx < array->used)
-		memmove(&array->arr[array->used], &array->arr[idx],
+		memmove(&array->arr[idx+1], &array->arr[idx],
 				(array->used - idx) * sizeof(int));
 	array->arr[idx] = elem;
 	array->used++;
 	return idx;
-}
-
-int delete (Array *array, int idx)
-{
-	if (!array || !array->arr)
-		return -1;
-	if (idx < 0 || idx > array->used)
-		return -1;
-	memmove(&array->arr[idx], &array->arr[idx + 1],
-			(array->used - idx) * sizeof(int));
-	array->used--;
-	return 0;
 }
 
 int search(Array *array, int elem)
@@ -63,6 +51,22 @@ int search(Array *array, int elem)
 	return -1;
 }
 
+int delete(Array *array, int elem)
+{
+    int idx;
+	if (!array || !array->arr)
+		return -1;
+    idx = search(array, elem);
+    if (-1 == idx)
+        return 0;
+	if (idx < 0 || idx > array->used)
+		return -1;
+	memmove(&array->arr[idx], &array->arr[idx + 1],
+			(array->used - idx) * sizeof(int));
+	array->used--;
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
 	int idx;
@@ -71,9 +75,10 @@ int main(int argc, char *argv[])
 	alloc(&ten_int);
 	if (!ten_int.arr)
 		return -1;
-	insert(&ten_int, 1);
+	insert(&ten_int, 4);
 	insert(&ten_int, 3);
 	insert(&ten_int, 2);
+	insert(&ten_int, 1);
 	dump(&ten_int);
 
 	idx = search(&ten_int, 2);
@@ -81,9 +86,12 @@ int main(int argc, char *argv[])
 	idx = search(&ten_int, 9);
 	printf("9 is at position %2d\n", idx);
 
+    printf("delete 6\n");
 	delete (&ten_int, 6);
 	dump(&ten_int);
-	delete (&ten_int, 0);
+
+    printf("delete 3\n");
+	delete (&ten_int, 3);
 	dump(&ten_int);
 
 	return 0;
